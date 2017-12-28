@@ -1,6 +1,7 @@
 package nl.sourcelabs.dsl
 
 import net.javacrumbs.jsonunit.*
+import net.javacrumbs.jsonunit.JsonAssert.*
 import org.junit.*
 import org.springframework.boot.test.web.client.*
 import org.springframework.http.*
@@ -26,7 +27,7 @@ data class Contract private constructor(val request: Request, val response: Resp
         val actualResponse = testRestTemplate.exchange(request.path, request.method, entity, String::class.java)
 
         Assert.assertEquals("Actual HTTP response code doesn't match expected value.", response.status, actualResponse.statusCode)
-        JsonAssert.assertJsonEquals(response.body, actualResponse.body)
+        assertJsonEquals(response.body, actualResponse.body)
     }
 }
 

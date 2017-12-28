@@ -1,6 +1,7 @@
 package nl.sourcelabs.dsl
 
 import net.javacrumbs.jsonunit.*
+import net.javacrumbs.jsonunit.JsonAssert.*
 import org.junit.*
 import org.junit.Assert.*
 import org.junit.runner.*
@@ -30,7 +31,7 @@ class DslDemoApplicationTests {
         val response = testRestTemplate.exchange("/api/hello/Jarno", HttpMethod.GET, entity, String::class.java)
 
         assertEquals(HttpStatus.OK, response.statusCode)
-        JsonAssert.assertJsonEquals("{ \"message\": \"Hi, Jarno!\" }", response.body)
+        assertJsonEquals("{ \"message\": \"Hi, Jarno!\" }", response.body)
     }
 
     /**
@@ -47,7 +48,7 @@ class DslDemoApplicationTests {
                 }
             }
             response {
-                status = HttpStatus.OK // We will get a 406 here because the server does not support xml
+                status = HttpStatus.OK
                 body = """{ "message": "Hi, Jarno!" }"""
             }
         }.verify(testRestTemplate)

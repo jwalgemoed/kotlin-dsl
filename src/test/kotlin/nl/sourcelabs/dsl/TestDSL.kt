@@ -33,7 +33,7 @@ class Request private constructor(
 
         val response = testRestTemplate.exchange(path, method, entity, String::class.java)
 
-        Assert.assertEquals(expect.status, response.statusCode)
+        Assert.assertEquals("Actual HTTP response code doesn't match expected value.", expect.status, response.statusCode)
         JsonAssert.assertJsonEquals(expect.body, response.body)
     }
 }

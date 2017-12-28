@@ -30,14 +30,29 @@ class DslDemoApplicationTests {
     @Test
     fun `Test 'Hello' with a simple DSL structure`() {
         request {
-            path = "/api/hello/Jim"
+            path = "/api/hello/Jarno"
+            method = HttpMethod.GET
             headers {
-                accept("application/xml")
-                contentType("text/css")
+                accept("application/json")
             }
             expect {
                 status = HttpStatus.OK
-                body = """{ "message": "Hi, Jim!" }"""
+                body = """{ "message": "Hi, Jarno!" }"""
+            }
+        }.execute(testRestTemplate)
+    }
+
+    @Test
+    fun `Test 'Hello' with a simple DSL structure - this test intentionally fails`() {
+        request {
+            path = "/api/hello/Jarno"
+            method = HttpMethod.GET
+            headers {
+                accept("application/xml") // Endpoint does not support XML
+            }
+            expect {
+                status = HttpStatus.OK // We will get a 406 here because the server does not support xml
+                body = """{ "message": "Hi, Jarno!" }"""
             }
         }.execute(testRestTemplate)
     }

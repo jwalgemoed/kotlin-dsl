@@ -1,6 +1,5 @@
 package nl.sourcelabs.dsl
 
-import net.javacrumbs.jsonunit.*
 import net.javacrumbs.jsonunit.JsonAssert.*
 import org.junit.*
 import org.junit.Assert.*

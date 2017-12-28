@@ -56,4 +56,24 @@ class DslDemoApplicationTests {
             }
         }.execute(testRestTemplate)
     }
+
+    @Test
+    fun `Test 'Hello' with a simple DSL structure - String interpolation & multiline`() {
+        val name = "Jarno" // Re-use the variable to make sure we compare the right values.
+        request {
+            path = "/api/hello/$name" // Interpolation here too
+            method = HttpMethod.GET
+            headers {
+                accept("application/json")
+            }
+            expect {
+                status = HttpStatus.OK
+                body = """
+                    {
+                        "message": "Hi, $name!"
+                    }
+                """ // Multiline string, easy to read. Interpolation can help here!
+            }
+        }.execute(testRestTemplate)
+    }
 }
